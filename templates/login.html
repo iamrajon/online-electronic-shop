@@ -1,0 +1,163 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %} Login-Page {% endblock title %}  
+
+{% block content %}  
+
+  <!--Navbar included-->
+  {% include "navbar.html" %}
+
+
+   <div class="container" id="login">
+    <div class="row">
+        <div class="col-md-5 py-3 py-md-0" id="side1">
+            <h3 class="text-center">Welcome Back!</h3>
+        </div>
+        <div class="col-md-7 py-3 py-md-0" id="side2">
+            <h3 class="text-center">Account login</h3>
+            <div class="form-field px-2">
+              <!--login Form-->
+              <form action="{% url "login-view" %}" method="post" novalidate>
+                {% csrf_token %}
+                {% for field in form  %}
+                  <div class="mb-1 mt-3 p-1 mx-3">
+                    {{field.label_tag}}
+                    {{field}}
+                    {% for error in field.errors  %}
+                      <small class="text-danger" style="font-size: 0.9rem;">{{error}}</small>
+                    {% endfor %}
+                  </div>
+                {% endfor %}
+                <!--forgot password-->
+                <p class="text-end">
+                  <a href="{% url "password-reset-view" %}" style="text-decoration: none; font-size: 0.8rem;" class="me-3">Forgot Password?</a>
+                </p>
+                <!---non-field-errors-->
+                {% if form.non_field_errors %}
+                  {% for error in form.non_field_errors  %}
+                    <p class="text-center px-3 ">
+                      <small class="fw-bold text-danger" style="font-size: 0.8rem;">{{error}}</small>
+                    </p>
+                  {% endfor %}
+                {% endif %}
+                <div class="d-grid gap-2 col-6 mx-auto">
+                  <input type="submit" value="Login" class="btn btn-warning">
+                </div>
+              </form>
+            </div>
+            <p class="mt-5 px-2 text-center" style="font-size: 0.9rem;">Don't have an Account? <a href="{% url "register-view" %}">SignUP</a></p>
+        </div>
+    </div>
+   </div>
+
+
+
+    
+    <!-- newslater -->
+    <div class="container" id="newslater" style="margin-top: 100px;">
+      <h3 class="text-center">Subscribe To The Electronic Shop For Latest upload.</h3>
+      <div class="input text-center">
+        <input type="text" placeholder="Enter Your Email..">
+        <button id="subscribe">SUBSCRIBE</button>
+      </div>
+    </div>
+    <!-- newslater -->
+
+
+
+    <!-- footer -->
+    <footer id="footer">
+      <div class="footer-top">
+        <div class="container">
+          <div class="row">
+
+            <div class="col-lg-3 col-md-6 footer-contact">
+              <h3>Electronic Shop</h3>
+              <p>
+                Karachi <br>
+                Sindh <br>
+                Pakistan <br>
+              </p>
+              <strong>Phone:</strong> +000000000000000 <br>
+              <strong>Email:</strong> electronicshop@.com <br>
+            </div>
+
+            <div class="col-lg-3 col-md-6 footer-links">
+              <h4>Usefull Links</h4>
+             <ul>
+              <li><a href="#">Home</a></li>
+              <li><a href="#">About Us</a></li>
+              <li><a href="#">Services</a></li>
+              <li><a href="#">Terms of service</a></li>
+              <li><a href="#">Privacy policey</a></li>
+             </ul>
+            </div>
+
+
+
+            <div class="col-lg-3 col-md-6 footer-links">
+              <h4>Our Services</h4>
+
+             <ul>
+              <li><a href="#">PS 5</a></li>
+              <li><a href="#">Computer</a></li>
+              <li><a href="#">Gaming Laptop</a></li>
+              <li><a href="#">Mobile Phone</a></li>
+              <li><a href="#">Gaming Gadget</a></li>
+             </ul>
+            </div>
+
+            <div class="col-lg-3 col-md-6 footer-links">
+              <h4>Our Social Networks</h4>
+              <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia, quibusdam.</p>
+
+              <div class="socail-links mt-3">
+                <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-skype"></i></a>
+                <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+              </div>
+            
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="container py-4">
+        <div class="copyright">
+          &copy; Copyright <strong><span>Electronic Shop</span></strong>. All Rights Reserved
+        </div>
+        <div class="credits">
+          Designed by <a href="#">SA coding</a>
+        </div>
+      </div>
+    </footer>
+    <!-- footer -->
+
+    <a href="#" class="arrow"><i><img src="./images/arrow.png" alt=""></i></a>
+
+{% endblock content %}   
+
+
+
+
+
+
+
+
+   
+
+
+
+
+
+
+
+
+
+
+

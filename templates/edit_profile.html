@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} Edit-Profile | Electronic Shop   {% endblock title %}
+
+{% block content %}
+
+    <!---Navbar included-->
+    {% include "navbar.html" %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-10 offset-md-1 mt-5">
+                <h4 class="text-center fw-bold alert alert-warning mb-2">
+                    Edit Profile Address
+                </h4>
+
+                <form action="" method="post" novalidate>
+                    {% csrf_token %}
+                    {% for field in form  %}
+                        <div class="mb-2 p-2">
+                            {{field.label_tag}}
+                            {{field}}
+                            {% if field.errors %}
+                                {% for error in field.errors  %}
+                                    <small class="text-danger">
+                                        {{error}}
+                                    </small>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                    <input type="submit" value="Save" class="btn btn-warning mt-2">
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

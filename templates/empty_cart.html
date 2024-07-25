@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} Empty Cart | Electronic Shop   {% endblock title %}    
+
+{% block content %}
+
+<!--Navbar included-->
+{% include "navbar.html" %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-md-10 offset-md-1">
+            <h2 class="py-3 my-2 mt-5 text-center fw-bold text-muted bg-light">
+                Your Cart is Empty!
+            </h2>
+            <div class="empty-cart-img d-flex justify-content-center align-items-center mt-5">
+                <img src="{% static "./images/empty-cart.png" %}" alt="cart" class="img-fluid" style="object-fit:contain; width: 400px;">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}
+
+

@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} Checkout-Page | Electronic Shop   {% endblock title %}
+
+
+{% block content %}
+
+<!---navbar included-->
+{% include "navbar.html" %}
+
+<div class="container">
+    <div class="row mt-5">
+     <div class="col-sm-6">
+       <h4>Order Summary</h4>
+       <hr>
+       {% for item in cart_items  %} 
+         <div class="card mb-2">
+           <div class="card-body">
+             <h5>Product: {{item.product.title}}</h5>
+             <p>Quantity: {{item.quantity}}</p>
+             <p class="fw-bold">Price: {{item.total_cost}}</p>
+           </div>
+         </div>
+        {% endfor %}
+        <hr>
+        <p class="fw-bold">Total Amount + shipping(Rs 70): {{total_amount}}</p>
+       <small>Term and Condition: Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, ullam saepe! Iure optio repellat dolor velit, minus rem. Facilis cumque neque numquam laboriosam, accusantium adipisci nisi nihil in et quis?</small>
+     </div>
+     <div class="col-sm-4 offset-sm-1">
+       <h4>Select Shipping Address</h4>
+       <hr>
+       <form action="{% url "check-out" method="get">
+        {% csrf_token %}
+        {% for ad in address  %}  
+         <div class="card">
+           <div class="card-body">
+           <h5>{{ad.name}}</h5>
+           <p>{{ad.locality}}, {{ad.city}}, {{ad.state}} - {{ad.zipcode}}</p>
+           </div>
+         </div>
+           <div class="form-check mt-2 mb-5">
+             <input class="form-check-input" type="radio" name="custid" id="custadd{{forloop.counter}}" value="{{ad.id}}">
+             <label class="form-check-label fw-bold" for="custadd{{forloop.counter}}">
+               Address: {{forloop.counter}} </label>
+           </div>
+           {% endfor %}
+         </form>
+         <!--esewa-->
+         <body>
+          <form action="https://rc-epay.esewa.com.np/api/epay/main/v2/form" method="POST">
+          {% for item in cart_items  %}
+          <input type="text" id="amount" name="amount" value="{{item.total_cost}}" required>
+          <input type="text" id="tax_amount" name="tax_amount" value ="0" required>
+          <input type="text" id="total_amount" name="total_amount" value="{{item.total_cost}}" required>
+          <input type="text" id="transaction_uuid" value={{unique_id}} name="transaction_uuid"required>
+          <input type="text" id="product_code" name="product_code" value ="EPAYTEST" required>
+          <input type="text" id="product_service_charge" name="product_service_charge" value="0" required>
+          <input type="text" id="product_delivery_charge" name="product_delivery_charge" value="0" required>
+          <input type="text" id="success_url" name="success_url" value="https://esewa.com.np" required>
+          <input type="text" id="failure_url" name="failure_url" value="https://google.com" required>
+          <input type="text" id="signed_field_names" name="signed_field_names" value="total_amount,transaction_uuid,product_code" required>
+          <input type="text" id="signature" name="signature" value="{{signature}}" required>
+          {% endfor %}
+          <div class="text-end d-flex justify-content-between">
+            <button type="" class="btn btn-warning mt-3 px-5 fw-bold">Pay With Khalti</button>
+            <button type="submit" class="btn btn-success mt-3 px-5 fw-bold">Pay With Esewa</button>
+          </div>
+          </form>
+         </body>
+         <!--esewa--end>
+       </div>
+    </div>
+</div>
+{% endblock content %}
+
+
+
